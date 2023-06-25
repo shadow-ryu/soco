@@ -1,16 +1,9 @@
 "use client"
-import { buttonVariants } from "./ui/Button";
 import {
-  Cloud,
-  CreditCard,
-  Github,
-  Keyboard,
-  LifeBuoy,
+
   LogOut,
   Mail,
   MessageSquare,
-  Plus,
-  PlusCircle,
   Settings,
   User,
   UserPlus,
@@ -26,7 +19,6 @@ import {
   DropdownMenuLabel,
   DropdownMenuPortal,
   DropdownMenuSeparator,
-  DropdownMenuShortcut,
   DropdownMenuSub,
   DropdownMenuSubContent,
   DropdownMenuSubTrigger,
@@ -34,6 +26,7 @@ import {
 } from "./ui/DropdownMenu";
 import { Avatar, AvatarFallback, AvatarImage } from "./ui/Avatar";
 import {  signOut } from "next-auth/react"
+import Link from "next/link";
 
 const UserNav = (session:any) => {
  const{user,ses} =session
@@ -86,9 +79,11 @@ const UserNav = (session:any) => {
                         <Mail className="mr-2 h-4 w-4" />
                         <span>Post</span>
                       </DropdownMenuItem>
-                      <DropdownMenuItem>
+                      <DropdownMenuItem >
+                        <Link href="sr/create" className="flex justify-center items-center">
                         <MessageSquare className="mr-2 h-4 w-4" />
                         <span>Subreddit</span>
+                        </Link>
                       </DropdownMenuItem>
                       <DropdownMenuSeparator />
                     </DropdownMenuSubContent>

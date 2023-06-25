@@ -7,7 +7,7 @@ import Providers from "@/components/Provider";
 
 export const metadata = {
   title: "soco",
-  description: "A Reddit clone built with Next.js and TypeScript.",
+  description: "A social Media built with Next.js and TypeScript.",
 };
 const inter = Inter({ subsets: ["latin"] });
 export default function RootLayout({

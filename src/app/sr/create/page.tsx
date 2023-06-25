@@ -16,7 +16,6 @@ const Page = () => {
   const {
     register,
     handleSubmit,
-    formState: { errors },
     watch,
     reset,
   } = useForm();
@@ -59,6 +58,7 @@ const Page = () => {
       })
     },
     onSuccess: (data) => {
+      reset()
       router.push(`/sr/${data}`)
     },
   })
@@ -81,7 +81,7 @@ const Page = () => {
             </p>
             <div className="relative">
               <p className="absolute text-sm left-0 w-8 inset-y-0 grid place-items-center text-zinc-400">
-                r/
+                sr/
               </p>
               <Input
                 type="text"
