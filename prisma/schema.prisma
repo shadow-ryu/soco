@@ -93,8 +93,9 @@ model Post {
   updatedAt   DateTime  @updatedAt
   author      User      @relation(fields: [authorId], references: [id])
   authorId    String
-  subreddit   Subreddit @relation(fields: [subredditId], references: [id])
+  subreddit   Subreddit? @relation(fields: [subredditId], references: [id])
   subredditId String
+  personal    Boolean?
   comments    Comment[]
   votes       Vote[]
 }

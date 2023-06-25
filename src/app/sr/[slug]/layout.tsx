@@ -1,4 +1,4 @@
-import SubscribeLeaveToggle from "@/components/SubscribeLeaveToggle";
+import SubscribeLeaveToggle from "@/components/custom-ui/SubscribeLeaveToggle";
 import { buttonVariants } from "@/components/ui/Button";
 import { getAuthSession } from "@/lib/auth";
 import { db } from "@/lib/db";
@@ -31,7 +31,6 @@ const Layout = async ({
       },
     },
   });
-console.log(slug)
   const subscription = !session?.user
     ? undefined
     : await db.subscription.findFirst({
@@ -103,7 +102,7 @@ console.log(slug)
                       variant: "outline",
                       className: "w-full mb-6",
                     })}
-                    href={`r/${slug}/submit`}
+                    href={`sr/${slug}/create`}
                   >
                     Create Post
                   </Link>

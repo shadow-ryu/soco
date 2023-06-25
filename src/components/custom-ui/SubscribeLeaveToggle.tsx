@@ -1,4 +1,5 @@
 "use client";
+
 import { useCustomToasts } from "@/hooks/use-custom-toast";
 import { toast } from "@/hooks/use-toast";
 import { SubscribeToSubredditPayload } from "@/lib/validators/subreddit";
@@ -6,7 +7,8 @@ import { useMutation } from "@tanstack/react-query";
 import axios, { AxiosError } from "axios";
 import { useRouter } from "next/navigation";
 import React, { startTransition } from "react";
-import { Button } from "./ui/Button";
+import { Button } from "../ui/Button";
+
 interface SubscribeProps {
   isSubscribed: boolean;
   subredditId: string;

@@ -1,6 +1,4 @@
-// import MiniCreatePost from '@/components/MiniCreatePost'
-// import PostFeed from '@/components/PostFeed'
-import MiniCreatePost from '@/components/MiniCreatePost'
+import MiniCreatePost from '@/components/custom-ui/MiniCreatePost'
 import { INFINITE_SCROLL_PAGINATION_RESULTS } from '@/config'
 import { getAuthSession } from '@/lib/auth'
 import { db } from '@/lib/db'

@@ -7,7 +7,7 @@ import { useForm } from "react-hook-form";
 import { useMutation } from '@tanstack/react-query'
 import axios, { AxiosError } from 'axios'
 import { useRouter } from 'next/navigation'
-import { CreateSubredditPayload } from "@/lib/validators /subreddit";
+import { CreateSubredditPayload } from "@/lib/validators/subreddit";
 import { toast } from "@/hooks/use-toast";
 const Page = () => {
   // const [inputName, setInputName] = useState("");
