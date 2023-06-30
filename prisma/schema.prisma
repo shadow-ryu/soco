@@ -54,12 +54,13 @@ model User {
 
   username String? @unique
 
-  image       String?
-  accounts    Account[]
-  sessions    Session[]
-  Post        Post[]
-  Comment     Comment[]
-  CommentVote CommentVote[]
+  image        String?
+  accounts     Account[]
+  sessions     Session[]
+  Post         Post[]
+  Comment      Comment[]
+  CommentVote  CommentVote[]
+  PersonalPost PersonalPost[]
 }
 
 model Subreddit {
@@ -93,35 +94,50 @@ model Post {
   updatedAt   DateTime  @updatedAt
   author      User      @relation(fields: [authorId], references: [id])
   authorId    String
-  subreddit   Subreddit? @relation(fields: [subredditId], references: [id])
+  subreddit   Subreddit @relation(fields: [subredditId], references: [id])
   subredditId String
-  personal    Boolean?
   comments    Comment[]
   votes       Vote[]
 }
 
-model Comment {
-  id        String   @id @default(cuid())
-  text      String
-  createdAt DateTime @default(now())
-  author    User     @relation(fields: [authorId], references: [id])
+model PersonalPost {
+  id        String    @id @default(cuid())
+  title     String
+  content   Json?
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  author    User      @relation(fields: [authorId], references: [id])
   authorId  String
-  post      Post     @relation(fields: [postId], references: [id], onDelete: Cascade)
+  comments  Comment[]
+  votes     Vote[]
+}
+
+model Comment {
+  id        String    @id @default(cuid())
+  text      String
+  createdAt DateTime  @default(now())
+  author    User      @relation(fields: [authorId], references: [id])
+  authorId  String
+  post      Post      @relation(fields: [postId], references: [id], onDelete: Cascade)
   postId    String
   replyToId String?
   replyTo   Comment?  @relation("ReplyTo", fields: [replyToId], references: [id], onDelete: NoAction, onUpdate: NoAction)
   replies   Comment[] @relation("ReplyTo")
 
-  votes     CommentVote[]
-  commentId String?
+  votes          CommentVote[]
+  commentId      String?
+  PersonalPost   PersonalPost? @relation(fields: [personalPostId], references: [id])
+  personalPostId String?
 }
 
 model Vote {
-  user   User     @relation(fields: [userId], references: [id])
-  userId String
-  post   Post     @relation(fields: [postId], references: [id], onDelete: Cascade)
-  postId String
-  type   VoteType
+  user           User          @relation(fields: [userId], references: [id])
+  userId         String
+  post           Post          @relation(fields: [postId], references: [id], onDelete: Cascade)
+  postId         String
+  type           VoteType
+  PersonalPost   PersonalPost? @relation(fields: [personalPostId], references: [id])
+  personalPostId String?
 
   @@id([userId, postId])
 }
