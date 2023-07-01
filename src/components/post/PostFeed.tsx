@@ -10,7 +10,7 @@ import axios from "axios";
 import Post from "./Post";
 import { Loader2 } from "lucide-react";
 interface PostFeeedProps {
-  subredditName: string;
+  subredditName?: string;
   initialPosts: ExtendedPost[];
 }
 const PostFeed = ({ subredditName, initialPosts }: PostFeeedProps) => {
