@@ -5,15 +5,15 @@ generator client {
   provider = "prisma-client-js"
 }
 
-enum VoteType {
-  UP
-  DOWN
-}
-
 datasource db {
   provider     = "mysql"
   url          = env("DATABASE_URL")
   relationMode = "prisma"
+}
+
+enum VoteType {
+  UP
+  DOWN
 }
 
 model Account {
@@ -54,13 +54,12 @@ model User {
 
   username String? @unique
 
-  image        String?
-  accounts     Account[]
-  sessions     Session[]
-  Post         Post[]
-  Comment      Comment[]
-  CommentVote  CommentVote[]
-  PersonalPost PersonalPost[]
+  image       String?
+  accounts    Account[]
+  sessions    Session[]
+  Post        Post[]
+  Comment     Comment[]
+  CommentVote CommentVote[]
 }
 
 model Subreddit {
@@ -96,48 +95,33 @@ model Post {
   authorId    String
   subreddit   Subreddit @relation(fields: [subredditId], references: [id])
   subredditId String
-  comments    Comment[]
+  comments    Comment[] 
   votes       Vote[]
 }
 
-model PersonalPost {
-  id        String    @id @default(cuid())
-  title     String
-  content   Json?
-  createdAt DateTime  @default(now())
-  updatedAt DateTime  @updatedAt
-  author    User      @relation(fields: [authorId], references: [id])
-  authorId  String
-  comments  Comment[]
-  votes     Vote[]
-}
-
 model Comment {
-  id        String    @id @default(cuid())
+  id        String   @id @default(cuid())
   text      String
-  createdAt DateTime  @default(now())
-  author    User      @relation(fields: [authorId], references: [id])
+  createdAt DateTime @default(now())
+  author    User     @relation(fields: [authorId], references: [id])
   authorId  String
-  post      Post      @relation(fields: [postId], references: [id], onDelete: Cascade)
+  post      Post     @relation(fields: [postId], references: [id], onDelete: Cascade)
   postId    String
+
   replyToId String?
   replyTo   Comment?  @relation("ReplyTo", fields: [replyToId], references: [id], onDelete: NoAction, onUpdate: NoAction)
   replies   Comment[] @relation("ReplyTo")
 
-  votes          CommentVote[]
-  commentId      String?
-  PersonalPost   PersonalPost? @relation(fields: [personalPostId], references: [id])
-  personalPostId String?
+  votes     CommentVote[]
+  commentId String?
 }
 
 model Vote {
-  user           User          @relation(fields: [userId], references: [id])
-  userId         String
-  post           Post          @relation(fields: [postId], references: [id], onDelete: Cascade)
-  postId         String
-  type           VoteType
-  PersonalPost   PersonalPost? @relation(fields: [personalPostId], references: [id])
-  personalPostId String?
+  user   User     @relation(fields: [userId], references: [id])
+  userId String
+  post   Post     @relation(fields: [postId], references: [id], onDelete: Cascade)
+  postId String
+  type   VoteType
 
   @@id([userId, postId])
 }
